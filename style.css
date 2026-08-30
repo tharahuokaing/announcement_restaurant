@@ -129,3 +129,282 @@ body {
     .title { font-size: 1.5em; }
     .message-body p { font-size: 0.95em; }
 }
+
+/* =========================================================
+   1. CORE VARIABLES & CYBER-LED THEME
+   ========================================================= */
+:root {
+  --bg-dark: #000814;
+  --panel-bg: rgba(0, 20, 40, 0.75);
+  --panel-border: rgba(0, 255, 255, 0.25);
+  --cyan-primary: #00ffff;
+  --cyan-glow: rgba(0, 255, 255, 0.4);
+  --cyan-soft: rgba(0, 255, 255, 0.08);
+  --text-main: #e0ffff;
+  --text-accent: #00ff88;
+  --warning-amber: #ffaa00;
+  --font-khmer: 'Kantumruy', sans-serif;
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --backdrop-blur: blur(16px);
+}
+
+/* =========================================================
+   2. GLOBAL RESET & AMBIENT LED BACKGROUND
+   ========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(0, 255, 255, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(0, 255, 136, 0.1) 0%, transparent 40%),
+    linear-gradient(180deg, #000814 0%, #001224 100%);
+  background-attachment: fixed;
+  font-family: var(--font-khmer);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   3. HERO FULLSCREEN SECTION
+   ========================================================= */
+.hero-fullscreen {
+  position: relative;
+  width: 100%;
+  height: 45vh;
+  min-height: 320px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.img-full-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.65) contrast(1.1);
+  transform: scale(1.02);
+  transition: transform 0.8s ease;
+}
+
+.hero-fullscreen:hover .img-full-cover {
+  transform: scale(1.06);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 8, 20, 0.2) 0%, 
+    rgba(0, 12, 24, 0.8) 80%, 
+    var(--bg-dark) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.hero-overlay h1 {
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 20px var(--cyan-primary), 0 0 40px var(--cyan-glow);
+  font-weight: 700;
+}
+
+/* =========================================================
+   4. ANNOUNCEMENT CONTAINER & LANGUAGE TOGGLE
+   ========================================================= */
+.announcement-container {
+  width: 100%;
+  max-width: 800px;
+  margin: -60px auto 40px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+
+.lang-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.lang-toggle button {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  color: var(--cyan-primary);
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-family: var(--font-khmer);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: var(--backdrop-blur);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.lang-toggle button:hover {
+  background: rgba(0, 255, 255, 0.15);
+  box-shadow: 0 0 20px var(--cyan-glow);
+  transform: translateY(-2px);
+}
+
+.lang-toggle button.active {
+  background: var(--cyan-primary);
+  color: var(--bg-dark);
+  border-color: var(--cyan-primary);
+  box-shadow: 0 0 25px var(--cyan-glow);
+}
+
+/* =========================================================
+   5. GLASSMORPHISM CARD & TYPOGRAPHY
+   ========================================================= */
+.card {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  backdrop-filter: var(--backdrop-blur);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(0, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan-primary), transparent);
+}
+
+.lang-content {
+  display: none;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.lang-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  background: rgba(255, 170, 0, 0.12);
+  border: 1px solid var(--warning-amber);
+  color: var(--warning-amber);
+  padding: 6px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.2);
+}
+
+.title {
+  color: var(--cyan-primary);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+  text-align: center;
+}
+
+.subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  color: var(--text-accent);
+  font-weight: 400;
+  margin-bottom: 32px;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.message-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: justify;
+}
+
+.message-body p {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.8;
+}
+
+.message-body strong {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+}
+
+.thank-you {
+  font-size: 1.1rem !important;
+  color: var(--text-accent) !important;
+  font-weight: 700;
+  text-align: center !important;
+  margin-top: 16px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--panel-border);
+}
+
+/* =========================================================
+   6. RESPONSIVE BREAKPOINTS
+   ========================================================= */
+@media (max-width: 600px) {
+  .hero-fullscreen {
+    height: 35vh;
+    min-height: 240px;
+  }
+
+  .announcement-container {
+    margin-top: -40px;
+    padding: 0 12px;
+  }
+
+  .card {
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .message-body p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .lang-toggle button {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+}
