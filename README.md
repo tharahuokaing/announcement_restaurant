@@ -1,4 +1,3 @@
-# announcement_restaurant
 # 🏛️ Restaurant 1 - Imperial POS System
 > **ភោជនីយដ្ឋាន ហួ កាំង (សាខាមុខកំពូល ខេត្តកណ្តាល)**
 > **Huokaing Restaurant (Mukh Kampul Branch, Kandal Province)**
